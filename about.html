@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>About Me</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#384959" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(() => console.log("Service Worker registered"));
+      }
+    </script>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="container">
+      <h1>Perkenalan Singkat</h1>
+      <p>Nama Saya Teguh Esa Maulanna dengan NIM 2411532005</p>
+      <p>
+        Saya adalah Mahasiswa Semester 3 di Jurusan Informatika Fakultas
+        Teknologi Informasi Universitas Andalas
+      </p>
+      <p>Saya Sedang Mengikuti Mata Kuliah Desain Web</p>
+    </div>
+  </body>
+</html>

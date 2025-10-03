@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Desain Web</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#384959" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(() => console.log("Service Worker registered"));
+      }
+    </script>
+    <button id="installBtn" style="display: none">Install App</button>
+    <script>
+      let deferredPrompt;
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById("installBtn").style.display = "block";
+
+        document.getElementById("installBtn").addEventListener("click", () => {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choice) => {
+            console.log(choice.outcome);
+            deferredPrompt = null;
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="container">
+      <h1>Selamat Datang di Web Saya</h1>
+      <p>Ini adalah Halaman Utama Web Saya</p>
+      <p>
+        Web ini Merupakan Penugasan Pertama Saya dalam Mata Kuliah Desain Web
+      </p>
+    </div>
+    <div class="container">
+      <h2>Apa itu PWA?</h2>
+      <p>
+        Website ini sudah mendukung <b>Progressive Web App (PWA)</b>. Kamu bisa
+        menginstalnya di perangkatmu dan tetap mengakses meskipun sedang
+        offline.
+      </p>
+    </div>
+  </body>
+</html>

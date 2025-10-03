@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert("Form berhasil dikirim!");
+            event.target.reset();
+        }
+    </script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#384959">
+    <script>
+        if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js")
+        .then(() => console.log("Service Worker registered"));
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="container">
+        <h1>Hubungi Saya</h1>
+        <div class="contact-links">
+            <a href="mailto:teguhesamaulanna6@gmail.com">Email</a>
+            <a href="https://www.instagram.com/teguhsmlnna/">Instagram</a>
+            <a href="https://wa.me/6282181769253">WhatsApp</a>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Kirim Pesan</h2>
+        <form onsubmit="handleSubmit(event)">
+            <label for="nama">Nama:</label>
+            <input type="text" id="nama" name="nama" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="kategori">Kategori Pesan:</label>
+            <select id="kategori" name="kategori">
+                <option value="pertanyaan">Pertanyaan</option>
+                <option value="saran">Saran</option>
+                <option value="masalah">Masalah</option>
+            </select>
+
+            <label for="pesan">Pesan:</label>
+            <textarea id="pesan" name="pesan" required></textarea>
+
+            <p>Apakah ingin menerima balasan?</p>
+            <label><input type="radio" name="balasan" value="ya"> Ya</label>
+            <label><input type="radio" name="balasan" value="tidak"> Tidak</label>
+
+            <button type="submit">Kirim</button>
+        </form>
+    </div>
+</body>
+</html>
