@@ -1,7 +1,7 @@
 {
   "name": "Website Teguh PWA",
   "short_name": "TeguhPWA",
-  "start_url": "./index.html",
+  "start_url": "/Desain-Web/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#384959",

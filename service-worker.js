@@ -1,14 +1,15 @@
 const CACHE_NAME = "teguh-pwa-v1";
 const urlsToCache = [
-  "./",
-  "./index.html",
-  "./about.html",
-  "./contact.html",
-  "./offline.html",
-  "./style.css",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "/Desain-Web/",               
+  "/Desain-Web/index.html",
+  "/Desain-Web/about.html",
+  "/Desain-Web/contact.html",
+  "/Desain-Web/offline.html",
+  "/Desain-Web/style.css",
+  "/Desain-Web/icons/icon-192.png",
+  "/Desain-Web/icons/icon-512.png"
 ];
+
 
 // Install
 self.addEventListener("install", (event) => {
