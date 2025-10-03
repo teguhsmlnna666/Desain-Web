@@ -13,9 +13,11 @@
     <meta name="theme-color" content="#384959">
     <script>
         if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js")
-        .then(() => console.log("Service Worker registered"));
-        }
+        navigator.serviceWorker
+        .register("./service-worker.js")
+        .then(() => console.log("Service Worker registered"))
+        .catch(err => console.error("SW failed:", err));
+    }
     </script>
 </head>
 <body>

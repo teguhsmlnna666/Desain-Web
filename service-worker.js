@@ -1,13 +1,13 @@
 const CACHE_NAME = "teguh-pwa-v1";
 const urlsToCache = [
-  "/",
-  "/index.html",
-  "/about.html",
-  "/contact.html",
-  "/offline.html",
-  "/style.css",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+  "./",
+  "./index.html",
+  "./about.html",
+  "./contact.html",
+  "./offline.html",
+  "./style.css",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
 // Install

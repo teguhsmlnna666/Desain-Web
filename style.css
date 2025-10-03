@@ -167,3 +167,43 @@ button:hover {
         font-size: 16px;
     }
 }
+
+body.offline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef, #dee2e6);
+  color: #333;
+  text-align: center;
+}
+
+body.offline .container {
+  max-width: 500px;
+}
+
+.offline-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.offline-actions a,
+.offline-actions button {
+  background-color: #384959;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.offline-actions a:hover,
+.offline-actions button:hover {
+  background-color: #2b3642;
+  transform: scale(1.05);
+}

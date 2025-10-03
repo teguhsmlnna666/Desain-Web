@@ -5,9 +5,16 @@
   <title>Offline</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h1>Oops! Kamu sedang offline</h1>
-  <p>Silakan periksa koneksi internetmu.</p>
-  <a href="index.html">Kembali ke Beranda</a>
+<body class="offline">
+  <div class="container">
+    <h1>🚫 Oops! Kamu sedang offline</h1>
+    <p>Sepertinya koneksi internetmu terputus.</p>
+    <p>Jangan khawatir, kamu tetap bisa membuka halaman yang sudah tersimpan di perangkat.</p>
+    
+    <div class="offline-actions">
+      <a href="index.html">Kembali ke Beranda</a>
+      <button onclick="window.location.reload()">🔄 Coba Lagi</button>
+    </div>
+  </div>
 </body>
 </html>
