@@ -1,4 +1,4 @@
-const CACHE_NAME = "teguh-pwa-v1";
+const CACHE_NAME = "teguh-pwa-v2";
 const urlsToCache = [
   "/Desain-Web/",               
   "/Desain-Web/index.html",
@@ -33,7 +33,9 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(event.request).catch(() =>
-      caches.match(event.request).then((resp) => resp || caches.match("/offline.html"))
+      caches.match(event.request).then((resp) => 
+        resp || caches.match("/Desain-Web/offline.html")
+      )
     )
   );
 });
