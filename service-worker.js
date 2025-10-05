@@ -94,6 +94,7 @@ self.addEventListener('fetch', (event) => {
             
             // Jika request gagal dan request adalah navigasi halaman, tampilkan offline page
             if (event.request.mode === 'navigate') {
+              const OFFLINE_PAGE = "offline.html";
               return caches.match(OFFLINE_PAGE);
             }
             
