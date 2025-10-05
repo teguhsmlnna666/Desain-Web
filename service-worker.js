@@ -1,17 +1,16 @@
-const CACHE_NAME = "teguh-pwa-v2";
+const CACHE_NAME = "teguh-pwa-v3";
 const urlsToCache = [     
-  "/Desain-Web/",                       
-  "/Desain-Web/index.html",
-  "/Desain-Web/about.html",
-  "/Desain-Web/contact.html",
-  "/Desain-Web/offline.html",
-  "/Desain-Web/style.css",
-  "/Desain-Web/icons/icon-192.png",
-  "/Desain-Web/icons/icon-512.png"
+  "./",
+  "index.html",
+  "about.html",
+  "contact.html",
+  "offline.html",
+  "style.css",
+  "icons/icon-192.png",
+  "icons/icon-512.png"
 ];
 
-
-// Install event: cache files
+// Install event → cache semua file penting
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -21,7 +20,7 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
 
-// Activate event: clean up old caches
+// Activate event → hapus cache lama
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) =>
@@ -35,27 +34,19 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch event: serve from cache, fallback to offline.html for navigation
+// Fetch event → fallback ke offline.html saat tidak ada koneksi
 self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
+    // Untuk request halaman (navigasi)
     event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          return response || caches.match("/Desain-Web/offline.html");
-        })
-        .catch(() => caches.match("/Desain-Web/offline.html"))
+      fetch(event.request).catch(() => caches.match("offline.html"))
     );
   } else {
+    // Untuk request resource (css, js, gambar, dll.)
     event.respondWith(
       caches.match(event.request).then((response) => {
-        return (
-          response ||
-          fetch(event.request).catch(() => {
-            // Optionally, fallback for other requests
-          })
-        );
+        return response || fetch(event.request);
       })
     );
   }
 });
-
