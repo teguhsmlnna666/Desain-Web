@@ -1,12 +1,13 @@
 const CACHE_NAME = "teguh-pwa-v2";
-const urlsToCache = [                            
-  "index.html",
-  "about.html",
-  "contact.html",
-  "offline.html",
-  "style.css",
-  "icons/icon-192.png",
-  "icons/icon-512.png"
+const urlsToCache = [     
+  "/Desain-Web/",                       
+  "/Desain-Web/index.html",
+  "/Desain-Web/about.html",
+  "/Desain-Web/contact.html",
+  "/Desain-Web/offline.html",
+  "/Desain-Web/style.css",
+  "/Desain-Web/icons/icon-192.png",
+  "/Desain-Web/icons/icon-512.png"
 ];
 
 
@@ -40,9 +41,9 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          return response || caches.match("offline.html");
+          return response || caches.match("/Desain-Web/offline.html");
         })
-        .catch(() => caches.match("offline.html"))
+        .catch(() => caches.match("/Desain-Web/offline.html"))
     );
   } else {
     event.respondWith(
