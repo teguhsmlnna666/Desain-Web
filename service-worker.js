@@ -36,13 +36,18 @@ self.addEventListener("activate", (event) => {
 
 // Fetch event → fallback ke offline.html saat tidak ada koneksi
 self.addEventListener("fetch", (event) => {
-  if (event.request.mode === "navigate") {
-    // Untuk request halaman (navigasi)
+  if (
+    event.request.mode === "navigate" ||
+    (event.request.method === "GET" &&
+      event.request.headers.get("accept")?.includes("text/html")) ||
+    event.request.destination === "document"
+  ) {
+    // Fallback untuk halaman HTML
     event.respondWith(
       fetch(event.request).catch(() => caches.match("offline.html"))
     );
   } else {
-    // Untuk request resource (css, js, gambar, dll.)
+    // Untuk asset (css, js, gambar, dll.)
     event.respondWith(
       caches.match(event.request).then((response) => {
         return response || fetch(event.request);

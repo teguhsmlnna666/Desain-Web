@@ -12,14 +12,6 @@
         event.target.reset();
       }
     </script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("./service-worker.js")
-          .then(() => console.log("Service Worker registered"))
-          .catch((err) => console.error("SW failed:", err));
-      }
-    </script>
   </head>
   <body>
     <nav>
