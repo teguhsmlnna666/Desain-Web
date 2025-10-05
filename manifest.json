@@ -1,6 +1,7 @@
 {
-  "name": "Website Teguh PWA",
-  "short_name": "TeguhPWA",
+  "name": "teguhsmlnna-PWA",
+  "short_name": "teguhsmlnna",
+  "description": "Latihan pembuatan PWA",
   "start_url": "/Desain-Web/index.html",
   "display": "standalone",
   "background_color": "#ffffff",

@@ -7,10 +7,16 @@
     <meta name="theme-color" content="#384959" />
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("./service-worker.js")
-          .then(() => console.log("Service Worker registered"))
-          .catch((err) => console.error("SW failed:", err));
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("service-worker.js")
+            .then((registration) => {
+              console.log("Service-worker registered", registration);
+            })
+            .catch((error) => {
+              console.error("Service-worker registration failed", error);
+            });
+        });
       }
     </script>
     <script>
@@ -31,36 +37,40 @@
     </script>
   </head>
   <body>
-  <nav>
-    <div class="nav-left">
-      <p>teguhsmlnna</p>
-    </div>
-    <div class="nav-right">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </nav>
-  <div class="main-grid">
-    <div class="main-left">
-      <h1>Selamat Datang di Web Saya</h1>
-      <p>
-        Web ini merupakan project saya dalam mengikuti matakuliah Desain Web, mari lihat perkembangan dari project saya ini.
-      </p>
-      <p>
-        Website ini sudah mendukung <b>Progressive Web App (PWA)</b>, yang memungkinkan website ini dapat diinstall layaknya aplikasi mobile. Coba klik tombol "Install" di bawah ini untuk memasang web ini sebagai aplikasi di perangkat Anda.
-      </p>
-      <button id="installBtn" style="display: none">Install</button>
-    </div>
-    <div class="main-right">
-      <div class="profile-card">
-        <h2>Teguh Esa Maulanna</h2>
-        <p>Informatika</p>
-        <div class="profile-actions">
-          <a href="contact.html">Contact</a>
+    <nav>
+      <div class="nav-left">
+        <p>teguhsmlnna</p>
+      </div>
+      <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+    <div class="main-grid">
+      <div class="main-left">
+        <h1>Selamat Datang di Web Saya</h1>
+        <p>
+          Web ini merupakan project saya dalam mengikuti matakuliah Desain Web,
+          mari lihat perkembangan dari project saya ini.
+        </p>
+        <p>
+          Website ini sudah mendukung <b>Progressive Web App (PWA)</b>, yang
+          memungkinkan website ini dapat diinstall layaknya aplikasi mobile.
+          Coba klik tombol "Install" di bawah ini untuk memasang web ini sebagai
+          aplikasi di perangkat Anda.
+        </p>
+        <button id="installBtn" style="display: none">Install</button>
+      </div>
+      <div class="main-right">
+        <div class="profile-card">
+          <h2>Teguh Esa Maulanna</h2>
+          <p>Informatika</p>
+          <div class="profile-actions">
+            <a href="contact.html">Contact</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
