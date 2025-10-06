@@ -1,14 +1,12 @@
 const CACHE_NAME = 'teguh-pwa-v5';
 const OFFLINE_PAGE = 'offline.html';
-
-// Only cache offline page and essential assets
 const urlsToCache = [
   'style.css',
   'manifest.json',
   'offline.html'
 ];
 
-// Install event - cache only offline page
+// Install 
 self.addEventListener('install', (event) => {
   console.log('[Service Worker] Installing...');
   event.waitUntil(
@@ -27,7 +25,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate event - clean up old caches
+// Aktivasi
 self.addEventListener('activate', (event) => {
   console.log('[Service Worker] Activating...');
   event.waitUntil(
@@ -45,23 +43,17 @@ self.addEventListener('activate', (event) => {
   return self.clients.claim();
 });
 
-// Fetch event - Network Only with offline fallback
+// Fetch
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
   if (event.request.method !== 'GET') {
     return;
   }
-
-  // Skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
-
-  // Check if it's an HTML request
   const isHTMLRequest = event.request.headers.get('accept')?.includes('text/html');
 
   event.respondWith(
-    // Always try network first (no caching of pages)
     fetch(event.request)
       .then((response) => {
         console.log('[Service Worker] ✅ Network success for:', event.request.url);
@@ -69,8 +61,6 @@ self.addEventListener('fetch', (event) => {
       })
       .catch((error) => {
         console.log('[Service Worker] ❌ Network failed (OFFLINE):', error);
-        
-        // If network fails and it's HTML request, show offline page
         if (isHTMLRequest) {
           console.log('[Service Worker] 🔄 Serving offline page');
           return caches.match(OFFLINE_PAGE)
@@ -78,7 +68,6 @@ self.addEventListener('fetch', (event) => {
               if (response) {
                 return response;
               }
-              // Fallback if offline page not in cache
               return new Response(`
                 <!DOCTYPE html>
                 <html>
@@ -133,7 +122,6 @@ self.addEventListener('fetch', (event) => {
             });
         }
         
-        // For CSS and other assets, try to serve from cache
         return caches.match(event.request)
           .then((cachedResponse) => {
             if (cachedResponse) {
@@ -141,7 +129,6 @@ self.addEventListener('fetch', (event) => {
               return cachedResponse;
             }
             
-            // If not in cache, return error response
             return new Response('Offline - Resource not available', {
               status: 503,
               statusText: 'Service Unavailable',

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Desain Web</title>
+    <title>teguhsmlnna - Home</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#384959" />
+    <link rel="icon" href="icons/logo-512.png" type="image/png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
     <script>
-      // Register Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('service-worker.js')
@@ -18,7 +19,6 @@
             });
         });
       }
-    </script>
     </script>
     <script>
       let deferredPrompt;
@@ -48,30 +48,25 @@
         <a href="contact.html">Contact</a>
       </div>
     </nav>
-    <div class="main-grid">
-      <div class="main-left">
-        <h1>Selamat Datang di Web Saya</h1>
-        <p>
-          Web ini merupakan project saya dalam mengikuti matakuliah Desain Web,
-          mari lihat perkembangan dari project saya ini.
-        </p>
-        <p>
-          Website ini sudah mendukung <b>Progressive Web App (PWA)</b>, yang
-          memungkinkan website ini dapat diinstall layaknya aplikasi mobile.
-          Coba klik tombol "Install" di bawah ini untuk memasang web ini sebagai
-          aplikasi di perangkat Anda.
-        </p>
-        <button id="installBtn" style="display: none">Install</button>
+    <section class="welcome">
+      <div class="welcome-content">
+        <h1>Hola! Selamat Datang di Web Saya</h1>
+        <p>Web ini merupakan project saya dalam mengikuti matakuliah Desain Web, mari lihat perkembangan dari website saya ini!!!</p>
       </div>
-      <div class="main-right">
-        <div class="profile-card">
-          <h2>Teguh Esa Maulanna</h2>
-          <p>Informatika</p>
-          <div class="profile-actions">
-            <a href="contact.html">Contact</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
+    <section class="features">
+  <div class="feature-item">
+    <h2>✨ Fitur Progressive Web App (PWA)</h2>
+    <p>Website ini sudah mendukung Progressive Web App (PWA), yang memungkinkan website ini dapat diinstall layaknya aplikasi mobile. Berikut beberapa keunggulan PWA ini:</p>
+    <ul>
+      <li><strong>Install ke Perangkat:</strong> Dapat dipasang di smartphone atau desktop layaknya aplikasi native.</li>
+      <li><strong>Tampilan Fullscreen:</strong> Berjalan dalam mode standalone tanpa browser bar.</li>
+      <li><strong>Akses Offline:</strong> Halaman yang sudah dikunjungi dapat diakses tanpa koneksi internet.</li>
+      <li><strong>Cache Otomatis:</strong> Konten disimpan secara otomatis untuk akses lebih cepat.</li>
+    </ul>
+    <p>Kamu bisa mencobanya dengan klik tombol install dibawah ini</p>
+    <button id="installBtn" style="display:none;">Install Web Ini</button>
+  </div>
+</section>
   </body>
 </html>
