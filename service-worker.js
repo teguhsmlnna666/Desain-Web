@@ -1,142 +1,47 @@
-const CACHE_NAME = 'teguh-pwa-v5';
-const OFFLINE_PAGE = 'offline.html';
-const urlsToCache = [
-  'style.css',
-  'manifest.json',
-  'offline.html'
+const CACHE_NAME = "teguh-pwa-v5";
+const ASSETS_TO_CACHE = [
+  "./",
+  "./index.html",
+  "./offline.html",
+  "./manifest.json",
+  "./style.css",
+  "./icons/logo-512.png",
+  "./icons/apple-touch-icon.png"
 ];
-
-// Install 
-self.addEventListener('install', (event) => {
-  console.log('[Service Worker] Installing...');
+// Install
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('[Service Worker] Caching offline page and assets');
-        return cache.addAll(urlsToCache);
-      })
-      .then(() => {
-        console.log('[Service Worker] ✅ Offline page cached successfully');
-      })
-      .catch((error) => {
-        console.error('[Service Worker] ❌ Cache failed:', error);
-      })
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
   );
-  self.skipWaiting();
 });
-
-// Aktivasi
-self.addEventListener('activate', (event) => {
-  console.log('[Service Worker] Activating...');
+// Aktivasi 
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('[Service Worker] Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       );
     })
   );
-  return self.clients.claim();
+  console.log("Service Worker activated.");
 });
-
 // Fetch
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') {
-    return;
-  }
-  if (!event.request.url.startsWith(self.location.origin)) {
-    return;
-  }
-  const isHTMLRequest = event.request.headers.get('accept')?.includes('text/html');
-
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        console.log('[Service Worker] ✅ Network success for:', event.request.url);
-        return response;
+self.addEventListener("fetch", (event) => {
+  if (event.request.mode === "navigate") {
+    // jika user reload halaman, arahkan kehalaman offline
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => response)
+        .catch(() => caches.match("./offline.html"))
+    );
+  } else {
+    // Ambil aset dari cache atau fetch
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        return cachedResponse || fetch(event.request);
       })
-      .catch((error) => {
-        console.log('[Service Worker] ❌ Network failed (OFFLINE):', error);
-        if (isHTMLRequest) {
-          console.log('[Service Worker] 🔄 Serving offline page');
-          return caches.match(OFFLINE_PAGE)
-            .then((response) => {
-              if (response) {
-                return response;
-              }
-              return new Response(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                  <meta charset="UTF-8">
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                  <title>Offline</title>
-                  <style>
-                    body {
-                      font-family: Arial, sans-serif;
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                      min-height: 100vh;
-                      margin: 0;
-                      background: linear-gradient(to right, #6A89A7, #BDDDFC);
-                      text-align: center;
-                      padding: 20px;
-                    }
-                    .container {
-                      background: white;
-                      padding: 40px;
-                      border-radius: 20px;
-                      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-                    }
-                    h1 { color: #384959; margin-bottom: 20px; }
-                    button {
-                      background: #384959;
-                      color: white;
-                      border: none;
-                      padding: 12px 24px;
-                      border-radius: 8px;
-                      cursor: pointer;
-                      font-size: 16px;
-                      margin-top: 20px;
-                    }
-                    button:hover { background: #2b3642; }
-                  </style>
-                </head>
-                <body>
-                  <div class="container">
-                    <h1>🔌 Anda Sedang Offline</h1>
-                    <p>Tidak dapat terhubung ke internet.</p>
-                    <p>Silakan periksa koneksi Anda dan coba lagi.</p>
-                    <button onclick="window.location.reload()">🔄 Coba Lagi</button>
-                  </div>
-                </body>
-                </html>
-              `, {
-                headers: { 'Content-Type': 'text/html' }
-              });
-            });
-        }
-        
-        return caches.match(event.request)
-          .then((cachedResponse) => {
-            if (cachedResponse) {
-              console.log('[Service Worker] 📦 Serving from cache:', event.request.url);
-              return cachedResponse;
-            }
-            
-            return new Response('Offline - Resource not available', {
-              status: 503,
-              statusText: 'Service Unavailable',
-              headers: new Headers({
-                'Content-Type': 'text/plain'
-              })
-            });
-          });
-      })
-  );
+    );
+  }
 });
